@@ -32,45 +32,6 @@ var getErrorMessage = function (err) {
 };
 
 /**
- * Signin after passport authentication
- */
-exports.signin = function (req, res, next) {
-    // TODO: THIS ISN'T USED!!!! DELETE IT.   IT IS IN CONTACT
-  User.findOne({
-    email: req.body.email
-  }, function(err, user) {
-
-    if (err) throw err;
-
-    if (!user) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' });
-    } else if (user) {
-
-      // check if password matches
-      if (user.password != req.body.password) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-      } else {
-
-        // if user is found and password is right
-        // create a token
-        var token = jwt.sign(user, 'secret', {
-          expiresInMinutes: 1440 // expires in 24 hours
-        });
-
-        // return the information including token as JSON
-        res.json({
-          success: true,
-          message: 'Enjoy your token!',
-          token: token
-        });
-      }
-
-    }
-
-  });
-};
-
-/**
  * Update user details
  */
 exports.update = function (req, res) {
@@ -113,19 +74,6 @@ exports.read = function (req, res) {
 };
 
 /**
- * Signout
- */
-exports.signout = function (req, res) {
-  req.logout();
-  res.redirect('/login');
-};
-
-exports.apiSignout = function (req, res) {
-    req.logout();
-    res.send(200);
-};
-
-/**
  * Send User
  */
 exports.me = function (req, res) {
@@ -160,16 +108,15 @@ exports.list = function (req, res) {
 };
 
 exports.create = function (req, res) {
-  var user = new User(req.body);
-  user.company = req.companyId;
+  var quiz = new Quiz(req.body);
 
-  user.save(function (err) {
+  quiz.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err)
       });
     } else {
-      res.jsonp(user);
+      res.jsonp(quiz);
     }
   });
 };
