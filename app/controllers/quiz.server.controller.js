@@ -109,9 +109,9 @@ exports.list = function (req, res) {
 
 exports.create = function (req, res) {
   var quiz = new Quiz(req.body);
-
   quiz.save(function (err) {
     if (err) {
+      console.log(err);
       return res.status(400).send({
         message: getErrorMessage(err)
       });
@@ -122,17 +122,13 @@ exports.create = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-  var user = req.user;
-  user.company = req.user.company;
-
-  /*user.remove(function (err) {*/
-  user.update({deleted: true},function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(user);
-    }
+  Quiz.findOne({
+    id: req.body.id
+  }, function (err, docs) {
+    console.log(docs);
+    docs.remove(); //Remove all the documents that match!
+    res.jsonp({
+      status: 'OK'
+    });
   });
 };
