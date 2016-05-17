@@ -38,12 +38,6 @@
     "placeOpenBraceOnNewLineForControlBlocks": false
   },
   "files": [
-    "./src/app/controllers/calenadar.server.controller.ts",
-    "./src/app/controllers/feed.server.controller.ts",
-    "./src/app/controllers/messageTemplate.server.controller.ts",
-    "./src/app/controllers/quickbooks.server.controller.ts",
-    "./src/app/controllers/quickbooks.server.helper.ts",
-    "./src/test/unit/quickbook.server.unit.test.ts",
     "./typings/async/async.d.ts",
     "./typings/bluebird/bluebird.d.ts",
     "./typings/chai-http/chai-http.d.ts",
